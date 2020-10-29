@@ -13,7 +13,7 @@ public class AppResponse<T> {
 
   private final Boolean successful;
 
-  private final String errorCode;
+  private final Integer errorCode;
 
   private final String errorDetail;
 
@@ -21,8 +21,8 @@ public class AppResponse<T> {
 
   private final T data;
 
-  private AppResponse(Integer status, Boolean successful, String errorCode, String errorDetail,
-                      String errorMessageKey, T data) {
+  public AppResponse(Integer status, Boolean successful, Integer errorCode, String errorDetail,
+                     String errorMessageKey, T data) {
     this.status = status;
     this.successful = successful;
     this.errorCode = errorCode;
@@ -47,7 +47,7 @@ public class AppResponse<T> {
     return successful;
   }
 
-  public String getErrorCode() {
+  public Integer getErrorCode() {
     return errorCode;
   }
 
@@ -68,7 +68,7 @@ public class AppResponse<T> {
     return "AppResponse{" +
            "status=" + status +
            ", successful=" + successful +
-           ", errorCode='" + errorCode + '\'' +
+           ", errorCode=" + errorCode +
            ", errorDetail='" + errorDetail + '\'' +
            ", errorMessageKey='" + errorMessageKey + '\'' +
            ", data=" + data +

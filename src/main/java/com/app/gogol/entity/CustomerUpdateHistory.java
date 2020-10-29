@@ -3,30 +3,23 @@ package com.app.gogol.entity;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * @author unalpolat
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "customer_phone_number_status_uk",
-                                             columnNames = {"phoneNumber", "status"}))
-public class Customer {
+public class CustomerUpdateHistory {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
   private Long id;
 
-  @Enumerated(STRING)
   @Column(nullable = false)
-  private Status status;
+  private Long customerId;
 
   @Column
   private String firstName;
@@ -41,10 +34,26 @@ public class Customer {
   private String phoneNumber;
 
   @Column(nullable = false)
-  private Date createdAt;
+  private Long creatorId;
 
   @Column(nullable = false)
-  private Date lastUpdatedAt;
+  private Date createdAt;
+
+  public CustomerUpdateHistory(Long customerId, String firstName, String lastName, String email,
+                               String phoneNumber, Long creatorId, Date createdAt) {
+    this.customerId = customerId;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.creatorId = creatorId;
+    this.createdAt = createdAt;
+  }
+
+  public static CustomerUpdateHistory from(Customer customer, Long creatorId) {
+    return new CustomerUpdateHistory(customer.getId(), customer.getFirstName(), customer.getLastName(),
+                                     customer.getEmail(), customer.getPhoneNumber(), creatorId, new Date());
+  }
 
   public Long getId() {
     return id;
@@ -54,12 +63,12 @@ public class Customer {
     this.id = id;
   }
 
-  public Status getStatus() {
-    return status;
+  public Long getCustomerId() {
+    return customerId;
   }
 
-  public void setStatus(Status status) {
-    this.status = status;
+  public void setCustomerId(Long customerId) {
+    this.customerId = customerId;
   }
 
   public String getFirstName() {
@@ -102,30 +111,25 @@ public class Customer {
     this.createdAt = createdAt;
   }
 
-  public Date getLastUpdatedAt() {
-    return lastUpdatedAt;
+  public Long getCreatorId() {
+    return creatorId;
   }
 
-  public void setLastUpdatedAt(Date lastUpdatedAt) {
-    this.lastUpdatedAt = lastUpdatedAt;
+  public void setCreatorId(Long creatorId) {
+    this.creatorId = creatorId;
   }
 
   @Override
   public String toString() {
-    return "Customer{" +
+    return "CustomerUpdateHistory{" +
            "id=" + id +
+           ", customerId='" + customerId +
            ", firstName='" + firstName + '\'' +
            ", lastName='" + lastName + '\'' +
            ", email='" + email + '\'' +
            ", phoneNumber='" + phoneNumber + '\'' +
+           ", creatorId=" + creatorId +
            ", createdAt=" + createdAt +
-           ", lastUpdatedAt=" + lastUpdatedAt +
            '}';
-  }
-
-  public enum Status {
-    ACTIVE,
-    PASSIVE,
-    BLOCKED
   }
 }
