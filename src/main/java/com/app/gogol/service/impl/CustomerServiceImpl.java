@@ -7,7 +7,7 @@ import com.app.gogol.exception.CustomerNotFoundException;
 import com.app.gogol.exception.PhoneNumberInUseException;
 import com.app.gogol.repository.CustomerRepository;
 import com.app.gogol.repository.CustomerUpdateHistoryRepository;
-import com.app.gogol.request.AddCustomerRequest;
+import com.app.gogol.request.NewCustomerRequest;
 import com.app.gogol.request.UpdateCustomerRequest;
 import com.app.gogol.service.CustomerService;
 import java.util.Date;
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public CustomerDto add(AddCustomerRequest request) throws PhoneNumberInUseException {
+  public CustomerDto add(NewCustomerRequest request) throws PhoneNumberInUseException {
     checkPhoneNumberInUse(request.getPhoneNumber());
     Customer customer = createNewCustomer(request);
     Customer newCustomer = repository.save(customer);
@@ -79,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
   }
 
-  private Customer createNewCustomer(AddCustomerRequest request) {
+  private Customer createNewCustomer(NewCustomerRequest request) {
     Customer customer = new Customer();
     customer.setFirstName(request.getFirstName());
     customer.setLastName(request.getLastName());

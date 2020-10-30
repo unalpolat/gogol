@@ -8,17 +8,14 @@ import javax.validation.constraints.Size;
 /**
  * @author unalpolat
  */
-public class AddCustomerRequest {
+public class NewCustomerRequest {
 
-  @NotEmpty
   @Size(max = 190)
   private String firstName;
 
-  @NotEmpty
   @Size(max = 190)
   private String lastName;
 
-  @NotEmpty
   @Email
   private String email;
 

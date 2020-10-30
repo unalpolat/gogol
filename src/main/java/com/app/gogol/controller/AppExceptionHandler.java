@@ -16,8 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import static com.app.gogol.bean.GogolErrorCodes.METHOD_ARGUMENT_NOT_VALID;
 import static java.lang.String.format;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 /**
  * @author unalpolat
@@ -33,7 +34,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(AbstractAppException.class)
   public ResponseEntity<AppResponse> handleServiceException(AbstractAppException ex) {
-    return ResponseEntity.ok(createFailedServiceResponse(OK.value(),
+    return ResponseEntity.ok(createFailedServiceResponse(BAD_REQUEST.value(),
                                                          ex.getErrorCode(),
                                                          ex.getErrorDetail(),
                                                          INTERNAL_EXCEPTION_KEY + ex.getClass().getSimpleName()));
@@ -44,8 +45,8 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
                                                              HttpStatus status, WebRequest request) {
     FieldError fieldError = ex.getBindingResult().getFieldError();
     assert fieldError != null;
-    String errorDetail = format("%s %s", fieldError.getField(), fieldError.getDefaultMessage());
-    return ResponseEntity.ok(createFailedServiceResponse(OK.value(),
+    String errorDetail = format("%s: %s", fieldError.getField(), fieldError.getDefaultMessage());
+    return ResponseEntity.ok(createFailedServiceResponse(UNPROCESSABLE_ENTITY.value(),
                                                          METHOD_ARGUMENT_NOT_VALID,
                                                          errorDetail,
                                                          VALIDATION_EXCEPTION_KEY + ex.getClass().getSimpleName()));
@@ -53,7 +54,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<AppResponse> handleConstraintViolation(ConstraintViolationException ex) {
-    return ResponseEntity.ok(createFailedServiceResponse(OK.value(),
+    return ResponseEntity.ok(createFailedServiceResponse(UNPROCESSABLE_ENTITY.value(),
                                                          GogolErrorCodes.CONSTRAINT_NOT_VALID,
                                                          ex.getMessage(),
                                                          VALIDATION_EXCEPTION_KEY + ex.getClass().getSimpleName()));

@@ -5,7 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -14,30 +13,25 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @author unalpolat
  */
 @Entity
-@Table(indexes = @Index(name = "order_item_order_id_index", columnList = "orderId"))
-public class OrderItem {
+@Table
+public class Product {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
   private Long id;
 
   @Column(nullable = false)
-  private Long orderId;
+  private String name;
 
-  @Column(nullable = false)
-  private Long productId;
+  @Column
+  private String description;
 
   // shown as kurus
   @Column(nullable = false)
   private Integer price;
 
-  // shown as kurus
   @Column(nullable = false)
-  private Integer quantity;
-
-  // item specific customer note
-  @Column(length = 1024)
-  private String note;
+  private Integer stockQuantity;
 
   @Column(nullable = false)
   private Date createdAt;
@@ -53,20 +47,20 @@ public class OrderItem {
     this.id = id;
   }
 
-  public Long getOrderId() {
-    return orderId;
+  public String getName() {
+    return name;
   }
 
-  public void setOrderId(Long orderId) {
-    this.orderId = orderId;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public Long getProductId() {
-    return productId;
+  public String getDescription() {
+    return description;
   }
 
-  public void setProductId(Long productId) {
-    this.productId = productId;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Integer getPrice() {
@@ -77,20 +71,12 @@ public class OrderItem {
     this.price = price;
   }
 
-  public Integer getQuantity() {
-    return quantity;
+  public Integer getStockQuantity() {
+    return stockQuantity;
   }
 
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
-  }
-
-  public String getNote() {
-    return note;
-  }
-
-  public void setNote(String note) {
-    this.note = note;
+  public void setStockQuantity(Integer stockQuantity) {
+    this.stockQuantity = stockQuantity;
   }
 
   public Date getCreatedAt() {
@@ -111,13 +97,12 @@ public class OrderItem {
 
   @Override
   public String toString() {
-    return "OrderItem{" +
+    return "Product{" +
            "id=" + id +
-           ", orderId=" + orderId +
-           ", productId=" + productId +
+           ", name='" + name + '\'' +
+           ", description='" + description + '\'' +
            ", price=" + price +
-           ", quantity=" + quantity +
-           ", note='" + note + '\'' +
+           ", stockQuantity=" + stockQuantity +
            ", createdAt=" + createdAt +
            ", lastUpdatedAt=" + lastUpdatedAt +
            '}';

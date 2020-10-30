@@ -3,7 +3,7 @@ package com.app.gogol.service;
 import com.app.gogol.bean.CustomerDto;
 import com.app.gogol.exception.CustomerNotFoundException;
 import com.app.gogol.exception.PhoneNumberInUseException;
-import com.app.gogol.request.AddCustomerRequest;
+import com.app.gogol.request.NewCustomerRequest;
 import com.app.gogol.request.UpdateCustomerRequest;
 
 /**
@@ -15,5 +15,5 @@ public interface CustomerService {
 
   void update(UpdateCustomerRequest request) throws CustomerNotFoundException;
 
-  CustomerDto add(AddCustomerRequest request) throws PhoneNumberInUseException;
+  CustomerDto add(NewCustomerRequest request) throws PhoneNumberInUseException;
 }

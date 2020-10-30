@@ -18,7 +18,8 @@ import static javax.persistence.TemporalType.DATE;
  * @author unalpolat
  */
 @Entity
-@Table(indexes = @Index(name = "order_customer_id_index", columnList = "customerId"))
+@Table(name = "\"order\"",
+       indexes = @Index(name = "order_customer_id_index", columnList = "customerId"))
 public class Order {
 
   @Id
@@ -204,13 +205,13 @@ public class Order {
            '}';
   }
 
-  private enum Status {
+  public enum Status {
     CREATED,
     IN_DELIVERY,
     COMPLETED
   }
 
-  private enum LastUpdateOperation {
+  public enum LastUpdateOperation {
     UPDATE,
     CANCEL,
     RESCHEDULE,

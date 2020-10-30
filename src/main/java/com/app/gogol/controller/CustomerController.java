@@ -3,7 +3,7 @@ package com.app.gogol.controller;
 import com.app.gogol.bean.CustomerDto;
 import com.app.gogol.exception.CustomerNotFoundException;
 import com.app.gogol.exception.PhoneNumberInUseException;
-import com.app.gogol.request.AddCustomerRequest;
+import com.app.gogol.request.NewCustomerRequest;
 import com.app.gogol.request.UpdateCustomerRequest;
 import com.app.gogol.response.AppResponse;
 import com.app.gogol.service.CustomerService;
@@ -38,7 +38,7 @@ public class CustomerController {
   }
 
   @PostMapping
-  public AppResponse<CustomerDto> addCustomer(@Validated @RequestBody AddCustomerRequest request)
+  public AppResponse<CustomerDto> newCustomer(@Validated @RequestBody NewCustomerRequest request)
       throws PhoneNumberInUseException {
     return AppResponse.successful(customerService.add(request));
   }

@@ -21,15 +21,12 @@ public class UpdateCustomerRequest {
   @Positive
   private Long creatorId;
 
-  @NotBlank
   @Size(max = 190)
   private String firstName;
 
-  @NotBlank
   @Size(max = 190)
   private String lastName;
 
-  @NotBlank
   @Email
   private String email;
 

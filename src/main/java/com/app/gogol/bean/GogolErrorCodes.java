@@ -9,6 +9,8 @@ public class GogolErrorCodes {
 
   public static final Integer CUSTOMER_NOT_FOUND = 10002;
 
+  public static final Integer ORDER_NOT_FOUND = 10003;
+
   public static final Integer METHOD_ARGUMENT_NOT_VALID = 10997;
 
   public static final Integer CONSTRAINT_NOT_VALID = 10998;
